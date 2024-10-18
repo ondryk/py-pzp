@@ -1,11 +1,8 @@
 import requests
-from requests.exceptions import RequestException
 from datetime import datetime
 from .pages.temps import TemperatureParser
 import urllib3
 
-class ApplicationErrors(Exception):
-    pass
 
 class PzpClient:
     def __init__(self, server_base: str, user: str, password: str):
