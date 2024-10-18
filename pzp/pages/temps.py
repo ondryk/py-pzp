@@ -1,5 +1,8 @@
 import re
+from pzp.client import PzpClient
+from datetime import datetime
 
+#Temperature definitions
 class TempDef:
     def __init__(self, name: str, value: float):
         self.name = name
@@ -9,8 +12,31 @@ class TempDef:
         return f"{self.name}={self.value}"
 
 class TemperatureParser:
-    @staticmethod
-    def parse(text: str):
+
+    def __init__(self, client:PzpClient):
+        self.client = client
+
+    def retrieve(self, print_header: bool = True, sep: str = ";", debug: bool = False):
+        temps_raw = self.client.get_page("/PAGE73.XML")
+        if debug:
+            print("Raw response")
+            print(temps_raw)
+        now = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+
+        tmps = self.parse(temps_raw)
+   
+        if print_header:
+            print(f"Datum{sep}", end="")
+            for i, item in enumerate(tmps):
+                print(f"{sep if i > 0 else ''}{item.name}", end="")
+        print()      
+        print(f"{now}{sep}", end="")
+        for i, item in enumerate(tmps):
+            print(f"{sep if i > 0 else ''}{item.value}", end="")
+        print()
+
+
+    def parse(self, text: str):
         result = []
         try:
             result.append(TemperatureParser.parse_val(text, "B01: Teplota 1 sekundarní okruh", "T611D9BA9"))

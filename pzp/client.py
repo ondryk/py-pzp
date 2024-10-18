@@ -1,6 +1,4 @@
 import requests
-from datetime import datetime
-from .pages.temps import TemperatureParser
 import urllib3
 
 
@@ -23,6 +21,7 @@ class PzpClient:
     def get_url(self, endpoint: str) -> str:
         return f"{self.server_base}{endpoint}"
 
+
     def login(self):
         # Send GET request for login cookie
         resp = self.client.get(self.get_url("/SYSWWW/LOGIN.XML"))
@@ -33,27 +32,12 @@ class PzpClient:
         resp_login = self.client.post(self.get_url("/SYSWWW/LOGIN.XML"), data=login_body)
         resp_login.raise_for_status()
 
-    def print_temps(self, print_header: bool, sep: str):
-        temps_resp = self.client.get(self.get_url("/PAGE73.XML"))
-        temps_resp.raise_for_status()
-        text = temps_resp.text
-        #print(text)
-        now = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
-
-        # Mock TemperatureParser class (you need to replace this with actual parser logic)
-        tmps = TemperatureParser.parse(text)
-        #prepsat ze se parser vytvori, vezme si klienta, zavola se get, a to vyblije pole hodnot
-       # print(tmps)
-        if print_header:
-            print(f"Datum{sep}", end="")
-            for i, item in enumerate(tmps):
-                print(f"{sep if i > 0 else ''}{item.name}", end="")
-        print()      
-        print(f"{now}{sep}", end="")
-        for i, item in enumerate(tmps):
-            print(f"{sep if i > 0 else ''}{item.value}", end="")
-        print()
-
+    def get_page(self, page:str):
+        get_resp = self.client.get(self.get_url(page))
+        get_resp.raise_for_status()
+        return get_resp.text
+      
+      
 
     def logout(self):
         #try:

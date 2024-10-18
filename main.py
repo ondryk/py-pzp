@@ -1,4 +1,5 @@
 from pzp.client import PzpClient
+from pzp.pages.temps import TemperatureParser
 import argparse
 
 if __name__ == "__main__":
@@ -19,8 +20,12 @@ if __name__ == "__main__":
     if args.verbose:
         print("Logged in successfully")    
     # Get temperatures
-    print("Fetching temperatures...")
-    client.print_temps(print_header=True, sep=";")
+    if args.verbose:
+        print("Fetching temperatures...")
+    
+    temps = TemperatureParser(client)
+    temps.retrieve(True, ";")
+   # client.print_temps(print_header=True, sep=";")
 
     # Logout
     client.logout()
