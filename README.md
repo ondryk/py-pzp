@@ -9,7 +9,7 @@ Just run it from command line using python3 to get some help.
 ## Usage
     python3 main.py -h
 
-or get values directly
+or get values directly from your pump
 
     python3 main.py https://10.0.0.2/
 
@@ -18,3 +18,4 @@ or get values directly
 
 ## ToDo
 - Support reading of operating states from PAGE15.XML (running compressor, pumps, heating of water, heating etc.)
+- Refactor to support multiple pump models via abstracting features and their implementations
