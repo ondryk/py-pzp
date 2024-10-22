@@ -55,7 +55,6 @@ class TemperatureParser:
 
     @staticmethod
     def parse_val(text: str, name: str, code: str) -> TempDef:
-        # Pattern similar to the Rust version
         pattern = fr'<INPUT NAME="__{code}_REAL_.1f"\sVALUE="(.*?)"'
         r = re.compile(pattern)
 

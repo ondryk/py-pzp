@@ -40,10 +40,7 @@ class PzpClient:
       
 
     def logout(self):
-        #try:
-            resp = self.client.get(self.get_url("/LOGOUT.XML"))
-            resp.raise_for_status()
-       # except RequestException as e:
-        #    raise ApplicationErrors(f"Unable to logout: {str(e)}")
+        resp = self.client.get(self.get_url("/LOGOUT.XML"))
+        resp.raise_for_status()
 
 
