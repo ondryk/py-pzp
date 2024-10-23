@@ -1,7 +1,4 @@
-import re
 from pzp.client import PzpClient
-from datetime import datetime
-from pzp.values import RawValue
 from .page import PageParser
 
 class TemperatureParser(PageParser):
