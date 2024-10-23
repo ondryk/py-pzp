@@ -37,8 +37,6 @@ class PzpClient:
         get_resp.raise_for_status()
         return get_resp.text
       
-      
-
     def logout(self):
         resp = self.client.get(self.get_url("/LOGOUT.XML"))
         resp.raise_for_status()
