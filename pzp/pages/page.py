@@ -65,7 +65,8 @@ class PageParser(ABC):
 
       match = r.search(self.text)
       if match:
-          value = bool(int(match.group(1)))
-          return BoolValue(name, value)
+          num = int(match.group(1))
+    #      value = bool(num)
+          return BoolValue(name, num)
       else:
           raise ValueError(f"Could not find value for code: {code}")

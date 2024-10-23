@@ -8,7 +8,7 @@ class FloatValue:
         return f"{self.name}={self.value}"
 
 class BoolValue:
-    def __init__(self, name: str, value: bool):
+    def __init__(self, name: str, value: int):
         self.name = name
         self.value = value
 
