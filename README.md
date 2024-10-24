@@ -17,5 +17,4 @@ or get values directly from your pump
 - Read various temperatures from different sensors on PAGE73.XML - outside temperature, heating medium, hot water, water returning from heating system and some others. 
 
 ## ToDo
-- Support reading of operating states from PAGE15.XML (running compressor, pumps, heating of water, heating etc.)
 - Refactor to support multiple pump models via abstracting features and their implementations

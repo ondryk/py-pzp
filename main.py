@@ -9,6 +9,7 @@ if __name__ == "__main__":
     # Add sarguments
     parser.add_argument('server_base', type=str, help='PZP heat pump web interface base url, eg. https://192.168.1.2/')
     parser.add_argument('--output', type=str, default="temps", help='Output values, "temps" for temperatures, "states" for binary values of running states')
+    parser.add_argument('--print-headers', action='store_true', default=False, help='Print CSV headers to output')
     parser.add_argument('--username', type=str, default="admin", help='Username for login, defaults to admin')
     parser.add_argument('--password', type=str, default="admin", help='Password for login, defaults to admin')
     parser.add_argument('--verbose', action='store_true', help='Enable verbose mode, a lot of stuff printed, useful for debug only.')
@@ -27,10 +28,10 @@ if __name__ == "__main__":
     
     if args.output == 'temps':
         temps = TemperatureParser(client)
-        temps.retrieve(True, ";")
+        temps.retrieve(args.print_headers, ";")
     if args.output == 'states':
         states = RunningStateParser(client)
-        states.retrieve(True, ";")
+        states.retrieve(args.print_headers, ";")
    # client.print_temps(print_header=True, sep=";")
 
     # Logout

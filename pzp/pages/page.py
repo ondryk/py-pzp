@@ -31,10 +31,11 @@ class PageParser(ABC):
       tmps = self.parse(temps_raw)
   
       if print_header:
-          print(f"Datum{sep}", end="")
-          for i, item in enumerate(tmps):
-              print(f"{sep if i > 0 else ''}{item.name}", end="")
-      print()      
+        print(f"Datum{sep}", end="")
+        for i, item in enumerate(tmps):
+          print(f"{sep if i > 0 else ''}{item.name}", end="")
+        print()
+
       print(f"{now}{sep}", end="")
       for i, item in enumerate(tmps):
           print(f"{sep if i > 0 else ''}{item.value}", end="")
