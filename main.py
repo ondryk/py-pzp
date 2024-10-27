@@ -5,7 +5,6 @@ import argparse
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Connect to PZP heat pump and read values")
-
     # Add sarguments
     parser.add_argument('server_base', type=str, help='PZP heat pump web interface base url, eg. https://192.168.1.2/')
     parser.add_argument('--output', type=str, default="temps", help='Output values, "temps" for temperatures, "states" for binary values of running states')
@@ -20,21 +19,17 @@ if __name__ == "__main__":
         print(f"Logging into {args.server_base} as user {args.username}")
 
     client = PzpClient.create_and_login(args.server_base, args.username, args.password)
-    if args.verbose:
-        print("Logged in successfully")    
-    # Get temperatures
-    if args.verbose:
-        print("Fetching temperatures...")
-    
-    if args.output == 'temps':
-        temps = TemperatureParser(client)
-        temps.retrieve(args.print_headers, ";")
-    if args.output == 'states':
-        states = RunningStateParser(client)
-        states.retrieve(args.print_headers, ";")
-   # client.print_temps(print_header=True, sep=";")
+    try:        
+        if args.verbose:
+            print("Logged in successfully")    
 
-    # Logout
-    client.logout()
-    if args.verbose:
-        print("Logged out successfully")
+        if args.output == 'temps':
+            temps = TemperatureParser(client)
+            temps.print(args.print_headers, ";")
+        if args.output == 'states':
+            states = RunningStateParser(client)
+            states.print(args.print_headers, ";")
+    finally:
+        client.logout()
+        if args.verbose:
+            print("Logged out successfully")
