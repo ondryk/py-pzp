@@ -1,10 +1,13 @@
 from pzp.client import PzpClient
 from .page import PageParser
+from .states2 import RunningStateParser2
 
 class TemperatureParser(PageParser):
 
     def __init__(self, client:PzpClient):
         super().__init__(client, "/PAGE73.XML")
+        self.running_states2 = RunningStateParser2(client)
+
 
     def parse(self):
         result = []
@@ -16,5 +19,10 @@ class TemperatureParser(PageParser):
         result.append(self.parse_val("B12: Teplota TUV", "TBFEC17CC"))
         result.append(self.parse_val("B07: Teplota na vstupu deskového výparníku", "TFC34919C"))
         result.append(self.parse_val("B08: Teplota na výstupu deskového výparníku", "T089F00C8"))
+
+        # Append states from secondary page to output
+        self.running_states2.fetch_data()
+        running_states2 = self.running_states2.parse()
+        result.extend(running_states2)
 
         return result
