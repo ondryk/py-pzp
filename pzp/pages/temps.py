@@ -21,7 +21,6 @@ class TemperatureParser(PageParser):
         result.append(self.parse_val("B08: Teplota na výstupu deskového výparníku", "T089F00C8"))
 
         # Append states from secondary page to output
-        self.running_states2.fetch_data()
         running_states2 = self.running_states2.parse()
         result.extend(running_states2)
 

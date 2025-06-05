@@ -22,7 +22,6 @@ class RunningStateParser(PageParser):
         result.append(self.parse_bool("S08: Běh elektrokotle č.2", "T95CF3693"))
 
         # Append states from overall page to output
-        self.overall_page.fetch_data()
         overall = self.overall_page.parse()
         result.extend(overall)
 

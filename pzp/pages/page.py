@@ -1,11 +1,12 @@
 import re
+import time
 from pzp.client import PzpClient
 from datetime import datetime
 from pzp.values import FloatValue,BoolValue
 from abc import ABC, abstractmethod
 
 class PageParser(ABC):
-    """_summary_
+    """ Uses client and fetches data immediatelly. Output is parsed when printed.
 
     Args:
         ABC (_type_): _description_
@@ -15,13 +16,18 @@ class PageParser(ABC):
         self.client = client
         self.page_path = page_path
         self.raw_page_text = None
-
-    def fetch_data(self):
-        self.raw_page_text = self.client.get_page(self.page_path)
-
-    def print(self, print_header: bool = True, sep: str = ";", debug: bool = False):
         self.fetch_data()
 
+    """
+        Fetch data and wait some time
+    """
+    def fetch_data(self):
+        self.raw_page_text = self.client.get_page(self.page_path)
+        #TODO add debug print
+        #print(f"Page {self.page_path} fetched, waiting for a while")
+        time.sleep(0.3)
+
+    def print(self, print_header: bool = True, sep: str = ";", debug: bool = False):
         if debug:
             print("Raw response")
             print(self.raw_page_text)
